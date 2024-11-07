@@ -45,3 +45,5 @@ lib
 yarn.lock
 npm-shrinkwrap.json
 package-lock.json
+
+.DS_Store
