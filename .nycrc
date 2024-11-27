@@ -6,6 +6,9 @@
 	"statements": 85.93,
 	"functions": 82.43,
 	"branches": 76.06,
+	"include": [
+		"src/**/*.js"
+	],
 	"exclude": [
 		"coverage",
 		"test"

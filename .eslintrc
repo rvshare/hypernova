@@ -22,6 +22,7 @@
       "rules": {
         "indent": 1,
         "prefer-promise-reject-errors": 0,
+        "import/named": 0
       },
     },
     {

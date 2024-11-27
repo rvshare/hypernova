@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { DATA_KEY, DATA_ID } from '../lib';
+import { DATA_KEY, DATA_ID } from '../src/index';
 
 describe('hypernova', () => {
   it('DATA_KEY constant should be importable', () => {

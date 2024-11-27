@@ -1,6 +1,9 @@
-import 'airbnb-js-shims';
+export const OG_PROMISE = global.Promise; // eslint-disable-line import/prefer-default-export
 
-import sinon from 'sinon-sandbox';
+/* eslint-disable import/first */
+import 'airbnb-js-shims';
+import sinon from 'sinon';
+/* eslint-enable import/first */
 
 afterEach(() => {
   sinon.restore();

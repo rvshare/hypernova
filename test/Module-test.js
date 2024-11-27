@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import has from 'has';
-import { Module } from '../server';
+import { Module } from '../src/server';
 import mutableArray from './mutableArray';
 
 function run(code) {

@@ -1,7 +1,7 @@
-import cheerio from 'cheerio';
-import wrap from 'mocha-wrap';
+import * as cheerio from 'cheerio';
+import sinon from 'sinon';
 import { assert } from 'chai';
-import { serialize, toScript, fromScript } from '..';
+import { serialize, toScript, fromScript } from '../src/index';
 
 describe('escaping', () => {
   it('escapes', () => {
@@ -11,9 +11,15 @@ describe('escaping', () => {
     assert.include(html, '&amp;gt;');
   });
 
-  wrap()
-  .withGlobal('document', () => ({}))
-  .describe('with fromScript', () => {
+  describe('with fromScript', () => {
+    beforeEach(() => {
+      sinon.define(global, 'document', {});
+    });
+
+    afterEach(() => {
+      sinon.restore();
+    });
+
     it('loads the escaped content correctly', () => {
       const html = toScript({ a: 'b' }, { foo: '</script>', bar: '&gt;', baz: '&amp;' });
       const $ = cheerio.load(html);

@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import renderBatch from '../lib/utils/renderBatch';
+import renderBatch from '../src/utils/renderBatch';
 
 /* eslint max-classes-per-file: 1 */
 

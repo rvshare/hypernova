@@ -1,4 +1,4 @@
-import { loadModules, createVM } from '../server';
+import { loadModules, createVM } from '../src/server';
 
 describe('loadModules', () => {
   it('loads the respective environment', () => {

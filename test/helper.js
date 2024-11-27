@@ -6,3 +6,9 @@ export function makeJob(props) {
     data: props,
   };
 }
+
+export function requireFresh(module, opts = {}) {
+  const { alsoClear } = opts;
+  [module, ...(alsoClear || [])].forEach((path) => delete require.cache[require.resolve(path)]);
+  return require(module); // eslint-disable-line global-require, import/no-dynamic-require
+}
