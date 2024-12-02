@@ -1,49 +1,65 @@
 import { assert } from 'chai';
 import express from 'express';
+import { requireFresh } from './helper';
 
 describe('Hypernova server', () => {
-  let hypernova;
   const getComponent = () => {};
 
-  beforeEach(() => {
-    try {
-      [
-        '../lib/utils/logger',
-        '../lib/worker',
-        '../lib/server',
-        '../server',
-      ].forEach((module) => delete require.cache[require.resolve(module)]);
+  function hypernova(...args) {
+    return requireFresh(
+      '../src/server',
+      { alsoClear: ['../src/utils/logger', '../src/worker', '../src/server'] },
+    )(...args);
+  }
 
-      hypernova = require('../server'); // eslint-disable-line global-require
-    } catch (e) {
-      console.error('Couldnt remove dependecy or load the hypernova module.');
+  function close(instance) {
+    if (!instance) return;
+
+    if (!instance.devServer) {
+      throw new Error("No devServer to close. If you're trying to test non-devserver stuff, you'll have to add a way to kill it and put that here.");
     }
-  });
+
+    if (instance.devServer.server) {
+      instance.devServer.close();
+    } else {
+      instance.devServer.callback = () => instance.devServer.close(); // eslint-disable-line no-param-reassign
+    }
+  }
 
   it('blows up if hypernova does not get getComponent', () => {
-    assert.throws(hypernova, TypeError);
+    let instance;
+    assert.throws(() => { instance = hypernova(); }, TypeError);
+    close(instance);
   });
 
   it('blows up if hypernova gets `createApplication` that isnt a function', () => {
-    assert.throws(
-      () => hypernova({
+    let instance;
+    assert.throws(() => {
+      instance = hypernova({
         devMode: true,
         getComponent,
-        createApplication: {} }),
-      TypeError);
+        createApplication: {},
+      });
+    }, TypeError);
+    close(instance);
   });
 
   it('blows up if hypernova gets `createApplication` that doesnt return an express app', () => {
-    assert.throws(
-      () => hypernova({
+    let instance;
+    assert.throws(() => {
+      instance = hypernova({
         devMode: true,
         getComponent,
-        createApplication: () => {} }),
-      TypeError);
+        createApplication: () => {},
+      });
+    }, TypeError);
+    close(instance);
   });
 
   it('starts up the hypernova server without blowing up', () => {
-    hypernova({ devMode: true, getComponent });
+    let instance;
+    assert.isOk(instance = hypernova({ devMode: true, getComponent }));
+    close(instance);
   });
 
   it('starts up the hypernova server and an express instance without blowing up', () => {
@@ -64,5 +80,7 @@ describe('Hypernova server', () => {
     });
 
     assert.equal(APP_TITLE, hypernovaServer.locals.name);
+
+    close(hypernovaServer);
   });
 });

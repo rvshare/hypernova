@@ -1,10 +1,10 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import '../lib/environment';
+import '../src/environment';
 import { makeJob } from './helper';
-import * as lifecycle from '../lib/utils/lifecycle';
-import BatchManager from '../lib/utils/BatchManager';
+import * as lifecycle from '../src/utils/lifecycle';
+import BatchManager from '../src/utils/BatchManager';
 
 function mockPlugin() {
   return {

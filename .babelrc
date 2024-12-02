@@ -1,5 +1,9 @@
 {
-  "presets": ["airbnb"],
+  "presets": [["airbnb", {
+    "targets": {
+      "node": "current"
+    }
+  }]],
   "plugins": [
     "add-module-exports",
     ["transform-replace-object-assign", { "moduleSpecifier": "object.assign" }],

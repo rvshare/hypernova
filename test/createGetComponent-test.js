@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import path from 'path';
-import { createGetComponent } from '../server';
+import createGetComponent from '../src/createGetComponent';
 
 describe('createGetComponent', () => {
   const files = {

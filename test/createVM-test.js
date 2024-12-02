@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { createVM } from '../server';
+import createVM from '../src/createVM';
 
 describe('createVM', () => {
   let vm;

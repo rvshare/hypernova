@@ -151,6 +151,8 @@ const worker = (app, config, onServer, workerId) => {
 
     logger.info('Connected', { listen: config.listenArgs });
   });
+
+  return server;
 };
 
 worker.attachMiddleware = attachMiddleware;
