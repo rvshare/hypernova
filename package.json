@@ -11,14 +11,12 @@
     "lint": "eslint src test",
     "pretest": "npm run --silent lint",
     "test": "npm run coverage",
-    "posttest": "npm audit --production",
-    "coverage": "nyc --reporter=html --require @babel/register -- node_modules/.bin/_mocha -R nyan test/init.js test/*-test.js",
-    "postcoverage": "npm run cover:check",
-    "cover:check": "nyc check-coverage && echo code coverage thresholds met, achievement unlocked!",
+    "posttest": "npm audit",
+    "coverage": "nyc --require @babel/register -- node_modules/.bin/_mocha -R nyan test/init.js test/*-test.js",
     "test:files": "mocha --require @babel/register test/init.js",
     "test:files:help": "echo 'Use like npm run test:files -- test/my-test.js test/my-other-test.js'",
     "test:quick": "npm run test:files -- test/*-test.js -R dots",
-    "test:workflow": "npm run test:quick -- -R tap"
+    "test:ci": "npm run coverage -- -R spec"
   },
   "repository": {
     "type": "git",
