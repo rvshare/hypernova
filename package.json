@@ -4,7 +4,6 @@
   "description": "A service for server-side rendering your JavaScript views",
   "main": "lib/index.js",
   "scripts": {
-    "prepare": "npm run build",
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
     "build": "babel src -d lib",
@@ -20,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:airbnb/hypernova.git"
+    "url": "git@github.com:rvshare/hypernova.git"
   },
   "keywords": [
     "react",
@@ -41,9 +40,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/airbnb/hypernova/issues"
+    "url": "https://github.com/rvshare/hypernova/issues"
   },
-  "homepage": "https://github.com/airbnb/hypernova",
+  "homepage": "https://github.com/rvshare/hypernova",
   "devDependencies": {
     "@babel/cli": "^7.25.9",
     "@babel/core": "^7.26.0",

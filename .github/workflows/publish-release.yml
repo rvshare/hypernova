@@ -1,0 +1,49 @@
+name: Publish Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-release:
+    name: Publish release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Configure git
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - name: Update package.json version
+        run: |
+          # get version from tag and update package.json
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "Setting version in package.json to ${VERSION}"
+          npm version ${VERSION} --no-git-tag-version 
+
+          # push to main
+          git add package.json
+          git commit -m "[no-release-draft] Update package.json to version ${VERSION}"
+          git push origin main
+
+          # move tag to HEAD
+          git push --force origin "HEAD:refs/tags/${VERSION}"
+          git fetch --tags
+
+      - name: Publish to Github Packages
+        run: npm publish
+
