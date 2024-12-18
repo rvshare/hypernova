@@ -38,7 +38,7 @@ jobs:
           # push to main
           git add package.json
           git commit -m "[no-release-draft] Update package.json to version ${VERSION}"
-          git push origin main
+          git push -u origin main
 
           # move tag to HEAD
           git push --force origin "HEAD:refs/tags/${VERSION}"
