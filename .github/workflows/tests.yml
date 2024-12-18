@@ -1,6 +1,9 @@
 name: Run tests
 
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - main # This branch can only be pushed to via PRs, which would have run tests already
 
 jobs:
   test:
