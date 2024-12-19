@@ -4,6 +4,7 @@ on:
   push:
     branches-ignore:
       - main # This branch can only be pushed to via PRs, which would have run tests already
+      - release-test
 
 jobs:
   test:
