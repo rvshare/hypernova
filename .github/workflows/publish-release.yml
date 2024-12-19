@@ -14,10 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-          fetch-tags: true
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -30,27 +26,17 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Configure git
-        run: |
-          git config --global user.name "${GITHUB_ACTOR}"
-          git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+      - name: Lint
+        run: npm run lint
 
-      - name: Update package.json version
-        run: |
-          # get version from tag and update package.json
-          VERSION=${GITHUB_REF#refs/tags/}
-          echo "Setting version in package.json to ${VERSION}"
-          npm version ${VERSION} --no-git-tag-version 
+      - name: Run tests
+        run: npm run test:ci
 
-          # push to main
-          git add package.json
-          git commit -m "[no-release-draft] Update package.json to version ${VERSION}"
-          git push -u origin main
-
-          # move tag to HEAD
-          git push --force origin "HEAD:refs/tags/${VERSION}"
-          git fetch --tags
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./coverage
 
       - name: Publish to Github Packages
         run: npm publish

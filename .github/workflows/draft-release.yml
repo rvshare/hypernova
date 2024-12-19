@@ -2,15 +2,12 @@ name: Draft Release
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*' # Matches tags starting with "v"
 
 jobs:
   update-draft-release:
-    if: "!contains(github.event.head_commit.message, '[no-release-draft]')"
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: release-drafter/release-drafter@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Dump job github var
+      env:
+        GITHUB_VAR: ${{ toJson(github) }}
+      run: echo "$GITHUB_VAR"
