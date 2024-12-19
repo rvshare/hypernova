@@ -8,7 +8,7 @@ const promiseShimsEnvKey = 'HYPERNOVA_PROMISE_SHIMS';
 const shouldShimPromise = envIsTrue(process.env[promiseShimsEnvKey]);
 
 const es6methods = ['then', 'catch', 'constructor', 'finally'];
-const es6StaticMethods = ['all', 'allSettled', 'any', 'race', 'resolve', 'reject', 'cast', 'try', 'withResolvers'];
+const es6StaticMethods = ['all', 'allSettled', 'any', 'race', 'resolve', 'reject', 'cast', 'try', 'withResolvers', 'isRejected'];
 
 function isNotMethod(name) {
   return !(es6methods.includes(name) || es6StaticMethods.includes(name) || name.charAt(0) === '_');
