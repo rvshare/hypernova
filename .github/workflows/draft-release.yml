@@ -7,9 +7,23 @@ on:
 
 jobs:
   update-draft-release:
-    runs-on: ubuntu-latest # Specify the runner
+    if: ${{ github.ref_name == 'main' }}
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Dump job github var
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Ensure tag is on main branch
+        run: |
+          main_commit=$(git rev-parse origin/main)
+          echo "Main branch commit: $main_commit"
+          echo "Head commit: ${{ github.sha }}"
+          if [[ "${{ github.sha }}" != "$main_commit" ]]; then
+            echo "Commit does not match main branch. Exiting."
+            exit 1
+          fi
+
+      - uses: release-drafter/release-drafter@v6
         env:
-          GITHUB_VAR: ${{ toJson(github) }}
-        run: echo "$GITHUB_VAR"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
