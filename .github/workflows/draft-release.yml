@@ -12,10 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Ensure tag is on main branch
         run: |
-          main_commit=$(git rev-parse origin/main)
+          main_commit=$(git rev-parse main)
           echo "Main branch commit: $main_commit"
           echo "Head commit: ${{ github.sha }}"
           if [[ "${{ github.sha }}" != "$main_commit" ]]; then
