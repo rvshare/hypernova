@@ -7,9 +7,10 @@ on:
 
 jobs:
   update-draft-release:
-    runs-on: ubuntu-latest # Specify the runner
+    if: ${{ github.ref_name == 'main' && !startsWith(github.event.head_commit.message, '[no-release-draft]') }}
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Dump job github var
+      - uses: release-drafter/release-drafter@v6
         env:
-          GITHUB_VAR: ${{ toJson(github) }}
-        run: echo "$GITHUB_VAR"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
