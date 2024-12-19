@@ -1,0 +1,35 @@
+name: Draft Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Matches tags starting with "v"
+
+jobs:
+  update-draft-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Ensure tag is on main branch
+        run: |
+          main_commit=$(git rev-parse main)
+          echo "Main branch commit: $main_commit"
+          echo "Head commit: ${{ github.sha }}"
+          if [[ "${{ github.sha }}" != "$main_commit" ]]; then
+            echo "Commit does not match main branch. Exiting."
+            exit 1
+          fi
+
+      - name: Get version from tag
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - uses: release-drafter/release-drafter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: ${{ env.VERSION }}
+          tag: ${{ env.VERSION }}

@@ -1,25 +1,29 @@
-name: Run tests
+name: Publish Release
 
 on:
-  push:
-    branches-ignore:
-      - main # This branch can only be pushed to via PRs, which would have run tests already
+  release:
+    types: [published]
+
+permissions:
+  contents: write
 
 jobs:
-  test:
+  publish-release:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm install
+
+      - name: Build the project
+        run: npm run build
 
       - name: Lint
         run: npm run lint
@@ -32,3 +36,9 @@ jobs:
         with:
           name: coverage-report
           path: ./coverage
+
+      - name: Publish to Github Packages
+        run: npm publish
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+

@@ -374,7 +374,7 @@ The inverse of `toScript`, this function runs on the browser and attempts to fin
 The `serialize` function uses the attributes `DATA_KEY` and `DATA_ID` to generate the data markup. They can be used in the `fromScript` function to get the serialized data.
 
 ```typescript
-import { DATA_KEY, DATA_ID } from 'hypernova'
+import { DATA_KEY, DATA_ID } from '@rvshare/hypernova'
 
 fromScript({
     [DATA_KEY]: key,

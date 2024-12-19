@@ -1,10 +1,9 @@
 {
-  "name": "hypernova",
+  "name": "@rvshare/hypernova",
   "version": "2.5.0",
   "description": "A service for server-side rendering your JavaScript views",
   "main": "lib/index.js",
   "scripts": {
-    "prepare": "npm run build",
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
     "build": "babel src -d lib",
@@ -16,11 +15,12 @@
     "test:files": "mocha --require @babel/register test/init.js",
     "test:files:help": "echo 'Use like npm run test:files -- test/my-test.js test/my-other-test.js'",
     "test:quick": "npm run test:files -- test/*-test.js -R dots",
-    "test:ci": "npm run coverage -- -R spec"
+    "test:ci": "npm run coverage -- -R spec",
+    "release": "yarn version && git push && git push --tags && echo \"A release will be drafted at https://github.com/rvshare/hypernova/releases. Publish it to complete the release.\""
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:airbnb/hypernova.git"
+    "url": "git+ssh://git@github.com/rvshare/hypernova.git"
   },
   "keywords": [
     "react",
@@ -41,9 +41,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/airbnb/hypernova/issues"
+    "url": "https://github.com/rvshare/hypernova/issues"
   },
-  "homepage": "https://github.com/airbnb/hypernova",
+  "homepage": "https://github.com/rvshare/hypernova",
   "devDependencies": {
     "@babel/cli": "^7.25.9",
     "@babel/core": "^7.26.0",

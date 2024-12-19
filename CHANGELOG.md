@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.0] - 2024-12-19
+
+- Set minimum node version to 18
+- Update/remove deps to fix vulnerabilities (currently 0!)
+- Update npm scripts
+  - Add easy test commands
+  - Transpile tests on-demand so that they can be written against source code instead of dist code
+- Conditionally remove Promise shim (HYPERNOVA_PROMISE_SHIMS env var)
+  - Also conditionally log performance metrics around this (HYPERNOVA_PROFILING env var)
+- Add/update tests
+  - Add escape hatch to shut servers off so they don't persist after their test is done
+- Use simple test workflow
+- Add release command and workflows
+
 ## [2.5.0] - 2019-01-02
 
 ### Added
