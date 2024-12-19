@@ -3,7 +3,7 @@ name: Draft Release
 on:
   push:
     tags:
-      - 'v*' # Matches tags starting with "v"
+      - 'v*' # Matches tags starting with "v" :)
 
 jobs:
   update-draft-release:
