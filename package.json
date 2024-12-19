@@ -1,5 +1,5 @@
 {
-  "name": "hypernova",
+  "name": "@rvshare/hypernova",
   "version": "2.6.0",
   "description": "A service for server-side rendering your JavaScript views",
   "main": "lib/index.js",
